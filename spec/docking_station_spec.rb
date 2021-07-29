@@ -25,15 +25,28 @@ describe DockingStation do
     expect(docking_station).to respond_to(:release_bike)
   end
 
+  it 'can release a working bike' do
+    docking_station.dock(Bike.new)
+    expect(docking_station.release_bike.condition).to eq (:working)
+  end
+
+  it 'refuses to release a broken bike' do
+    junk_station = DockingStation.new
+    junk_station.dock(Bike.new(:broken))
+
+    expect { junk_station.release_bike }.to raise_error "No working bikes"
+  end
+
   it 'can tell you if a bike is working' do
-    expect(bike.working?).to eq true
+    working_bike = Bike.new
+    expect(working_bike.working?).to eq true
   end
   
   it 'can dock a bike' do
-    docking_station.dock(bike)
-    expect(docking_station).to respond_to(:dock)
-    expect(docking_station).to have_attributes(:bikes => [bike])
-    expect(docking_station.has_bikes?).to eq true
+    empty_station = DockingStation.new
+    empty_station.dock(Bike.new)
+    expect(empty_station).to respond_to(:dock)
+    expect(empty_station.has_bikes?).to eq true
   end
 
   it 'raises an error if a bike can\'t be docked because docking station is full' do

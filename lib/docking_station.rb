@@ -10,10 +10,13 @@ class DockingStation
   
   def release_bike
     raise "No bikes available" if dock_empty?
-    bike = @bikes.pop
+    raise "No working bikes" if @bikes.none? { |bike| bike.condition == :working }
+
+    bike = @bikes.find { |b| b.condition == :working }
+    @bikes.delete(bike)
   end
   
-  def dock(bike, condition = "working")
+  def dock(bike, condition = bike.condition)
     raise "Docking Station is full" if @bikes.length >= @capacity
     bike.update_bike_condition(condition)
     @bikes << bike
