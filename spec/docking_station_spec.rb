@@ -21,14 +21,15 @@ describe DockingStation do
   end
   
   it 'can dock a bike' do
-    expect(docking_station).to respond_to(:dock)
     docking_station.dock(bike)
+    expect(docking_station).to respond_to(:dock)
     expect(docking_station).to have_attributes(:bikes => [bike])
     expect(docking_station.has_bikes?).to eq true
   end
 
   it 'raises an error if a bike can\'t be docked because docking station is full' do
-    expect { docking_station.dock(bike) }.to raise_error "Docking Station is full"
+    19.times { docking_station.dock(bike) }
+    expect { docking_station.dock(bike) }.to raise_error "Docking Station is full" 
   end
 
 end
