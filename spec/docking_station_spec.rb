@@ -1,8 +1,8 @@
-require 'docking_station.rb'
+require "docking_station"
 
 describe DockingStation do
   docking_station = DockingStation.new
-  bike1 = Bike.new(73, "working")
+  bike1 = Bike.new("working")
 
   it 'raises an error if no bikes are available' do
     expect { docking_station.release_bike }.to raise_error "No bikes available"

@@ -1,12 +1,13 @@
 class DockingStation
   attr_reader :bikes
+
   def initialize
     @bikes = []
   end
   
   def release_bike
     raise "No bikes available" if has_bikes? == false
-    bike = Bike.new(A, "working")
+    bike = Bike.new("working")
   end
   
   def dock(number)
