@@ -37,7 +37,14 @@ describe DockingStation do
   end
 
   it 'raises an error if a bike can\'t be docked because docking station is full' do
-    19.times { docking_station.dock(bike) }
+    (docking_station.capacity - docking_station.bikes.size).times { docking_station.dock(bike) }
     expect { docking_station.dock(bike) }.to raise_error "Docking Station is full" 
   end
+
+  it "can allow a user to dock a bike and report the bike's condition as 'broken'" do
+    test_broken_station = DockingStation.new 
+    test_broken_station.dock(bike, "broken")
+    expect(test_broken_station.bikes.last.condition).to eq "broken"
+  end
+
 end

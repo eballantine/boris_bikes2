@@ -13,8 +13,9 @@ class DockingStation
     bike = @bikes.pop
   end
   
-  def dock(bike)
-    raise "Docking Station is full" if dock_full?
+  def dock(bike, condition = "working")
+    raise "Docking Station is full" if @bikes.length >= @capacity
+    bike.update_bike_condition(condition)
     @bikes << bike
   end
   
@@ -31,4 +32,6 @@ class DockingStation
   def dock_empty?
     @bikes.size <= 0
   end
+
 end
+
