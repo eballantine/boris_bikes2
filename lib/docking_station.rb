@@ -10,12 +10,12 @@ class DockingStation
     bike = Bike.new("working")
   end
   
-  def dock(number)
-    @bikes << number
+  def dock(bike)
+    raise "Docking Station is full" if has_bikes? == true
+    @bikes << bike
   end
   
   def has_bikes?
     @bikes.count > 0
   end
 end
-
