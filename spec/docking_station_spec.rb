@@ -13,12 +13,11 @@ describe DockingStation do
       expect(station42.capacity).to eq 42
     end
 
-    # test that the new capacity allows docking x times?? as per walkthrough
-    # it 'has a variable capacity' do
-    #   docking_station = DockingStation.new(50)
-    #   50.times { docking_station.dock Bike.new }
-    #   expect{ docking_station.dock Bike.new }.to raise_error 'Docking station full'
-    # end
+    it 'has a variable capacity' do
+      docking_station = DockingStation.new(50)
+      50.times { docking_station.dock bike }
+      expect{ docking_station.dock(bike)}.to raise_error 'Docking Station is full'
+    end
   end
 
   describe '#release_bike' do
@@ -33,7 +32,6 @@ describe DockingStation do
     end
 
     it 'raises an error if no bikes are available' do
-      # need to make new empty docking station?
       expect { subject.release_bike }.to raise_error 'No bikes available'
     end
 
@@ -67,7 +65,6 @@ describe DockingStation do
     end
 
     it 'raises an error if a bike can\'t be docked because docking station is full' do
-      # ?messed something up here, need to check.
       subject.capacity.times { subject.dock bike }
       expect { subject.dock(bike) }.to raise_error 'Docking Station is full'
     end
@@ -78,9 +75,7 @@ describe DockingStation do
       expect(subject.bikes.last.condition).to eq :broken
     end
   end
-  # it 'can tell you whether it has bikes' do
-  #   expect(subject.has_bikes?).to eq false
-  # end
+
   it 'responds to bikes' do
     expect(subject).to respond_to :bikes
   end
