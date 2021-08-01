@@ -1,5 +1,16 @@
-require "bike"
+require 'bike'
 
 describe Bike do
-  it { expect(Bike.new("working")).to respond_to(:working?) }
+  it 'responds to working?' do
+    expect(subject).to respond_to :working?
+  end
+
+  it 'responds to broken?' do
+    expect(subject).to respond_to :broken?
+  end
+
+  it 'can be reported broken' do
+    subject.report_broken
+    expect(subject.condition).to eq :broken
+  end
 end
